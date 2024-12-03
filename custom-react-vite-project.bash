@@ -75,11 +75,10 @@ npm run dev &
 # Wait for the server to start (optional, give it time)
 sleep 5
 
-# Detect user's home directory and check for Thorium Browser
-USER_PROFILE=$USERPROFILE
-
-if [ -f "$USER_PROFILE/AppData/Local/Thorium/Application/thorium.exe" ]; then
-  "$USER_PROFILE/AppData/Local/Thorium/Application/thorium.exe" http://localhost:5173 &
+# Detect Thorium browser installation and open the development server
+if command -v thorium-browser >/dev/null 2>&1; then
+  thorium-browser http://localhost:5173 &
 else
-  echo "Thorium Browser is not installed or not found."
+  echo "Thorium Browser is not installed or not found. Opening in the default browser."
+  xdg-open http://localhost:5173 &
 fi
